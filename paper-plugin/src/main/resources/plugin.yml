@@ -1,0 +1,12 @@
+name: BedrockJavaVoice
+version: 0.1.0
+main: com.example.bedrockvoice.paper.BedrockJavaVoicePlugin
+api-version: '1.21'
+commands:
+  voice:
+    description: Voice bridge controls
+    usage: /voice <status|reload|link>
+    permission: bedrockvoice.admin
+permissions:
+  bedrockvoice.admin:
+    default: op

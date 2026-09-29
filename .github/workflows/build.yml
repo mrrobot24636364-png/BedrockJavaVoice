@@ -1,0 +1,36 @@
+name: Build APK and Java
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+      - uses: android-actions/setup-android@v3
+      - run: yes | sdkmanager --licenses || true
+      - name: Build all
+        run: |
+          chmod +x gradlew
+          ./gradlew :protocol:test :android-app:assembleDebug :paper-plugin:build :voice-server:build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: android-app/build/outputs/apk/debug/*.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: paper-plugin
+          path: paper-plugin/build/libs/*.jar
+      - uses: actions/upload-artifact@v4
+        with:
+          name: voice-server
+          path: voice-server/build/libs/*-all.jar

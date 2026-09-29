@@ -1,0 +1,11 @@
+voice-server:
+  host: 127.0.0.1
+  port: 8080
+  token: dev-token
+proximity:
+  enabled: true
+  max-distance: 32.0
+audio:
+  sample-rate: 48000
+  channels: 1
+  codec: opus
